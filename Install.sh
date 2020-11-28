@@ -64,7 +64,7 @@ function Install()
   [ -f /etc/lsb-release ] && KNA=$(awk -F'[="]+' '/DISTRIB_ID/{print $2}' /etc/lsb-release)
   KNB=$(getconf LONG_BIT)
   [ ! -f /proc/net/dev ] && echo -ne "I can not find network device! \n\n" && exit 1;
-  Eth_List=`cat /proc/net/dev |awk -F: 'function trim(str){sub(/^[ \t]*/,"",str); sub(/[ \t]*$/,"",str); return str } NR>2 {print trim($1)}'  |grep -Ev '^lo|^sit|^stf|^gif|^dummy|^vmnet|^vir|^gre|^ipip|^ppp|^bond|^tun|^tap|^ip6gre|^ip6tnl|^teql|^venet' |awk 'NR==1 {print $0}'`
+  Eth_List=`cat /proc/net/dev |awk -F: 'function trim(str){sub(/^[ \t]*/,"",str); sub(/[ \t]*$/,"",str); return str } NR>2 {print trim($1)}'  |grep -Ev '^lo|^sit|^stf|^gif|^dummy|^vmnet|^vir|^gre|^ipip|^ppp|^bond|^tun|^tap|^ip6gre|^ip6tnl|^teql|^venet|^docker' |awk 'NR==1 {print $0}'`
   [ -z "$Eth_List" ] && echo "I can not find the server pubilc Ethernet! " && exit 1
   Eth=$(echo "$Eth_List" |head -n1)
   [ -z "$Eth" ] && Uninstall "Error! Not found a valid ether. "
